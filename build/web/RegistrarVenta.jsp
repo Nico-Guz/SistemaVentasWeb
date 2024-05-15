@@ -90,7 +90,7 @@
                             <input type="text" name="NroSerie" value="${nserie}" class="form-control" disabled>
                         </div>
                     </div>
-                    <table class="table table-hover">
+                    <table class="table table-hover text-center">
                         <thead>
                             <tr>
                                 <th>Nro</th>
@@ -109,7 +109,7 @@
                                 <td>${list.getIdproducto()}</td>
                                 <td>${list.getDescripcionP()}</td>
                                 <td>${list.getPrecio()}</td>
-                                <td><input type="number" value="${list.getCantidad()}"></td>
+                                <td><input style="width: 50px;height: 30px;" type="number" value="${list.getCantidad()}"></td>
                                 <td>${list.getSubtotal()}</td>
                                 
                                 <td>

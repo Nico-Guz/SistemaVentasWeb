@@ -15,7 +15,7 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     </head>
     <body>
-        <div class="d-flex">
+        <div class="d-flex contenedor">
             <div class="card col-sm-4" style="margin-right: 1%">
                 <div class="card-body">
                     <form action="Controlador?menu=Producto" method="POST">
