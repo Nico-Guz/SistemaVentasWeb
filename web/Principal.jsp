@@ -5,6 +5,10 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    HttpSession obj = request.getSession();
+    if (obj != null && obj.getAttribute("em") != null){
+%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -45,8 +49,8 @@
                     <a class="dropdown-item" href="#">${usuario.getUser()}</a>
                     <a class="dropdown-item" href="#">usuario@gmail.com</a>
                     <div class="dropdown-divider"></div>
-                    <form action="Validar" method="POST">
-                        <button name="accion" value="Salir" class="dropdown-item" href="#">Salir</button>
+                    <form action="CerrarSesion" method="POST">
+                        <button type="submit" class="dropdown-item" href="#">Salir</button>
                     </form>
                 </div>
             </div>
@@ -72,3 +76,9 @@
     </script>
     </body>
 </html>
+<%
+    }
+    else{
+        request.getRequestDispatcher("error.html").forward(request, response);
+    }
+%>

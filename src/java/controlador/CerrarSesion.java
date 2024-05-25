@@ -11,16 +11,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import modelo.Empleado;
-import modelo.EmpleadoDAO;
 
 /**
  *
  * @author nicol
  */
-public class Validar extends HttpServlet {
-    EmpleadoDAO edao=new EmpleadoDAO();
-    Empleado em=new Empleado();
+public class CerrarSesion extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -32,14 +29,18 @@ public class Validar extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession(false); // No crea una nueva sesión si no existe
-        if (session != null && session.getAttribute("em") != null) {
-            // Si la sesión y el atributo de sesión "em" están presentes,
-            // significa que el usuario ya ha iniciado sesión
-            response.sendRedirect("Controlador?menu=Principal"); // Redirige al usuario a la página principal
-        }
-        else {
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet CerrarSesion</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet CerrarSesion at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -69,22 +70,11 @@ public class Validar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String accion=request.getParameter("accion");
-        if(accion.equalsIgnoreCase("Ingresar")){
-            String user=request.getParameter("txtuser");
-            String pass=request.getParameter("txtpass");
-            em=edao.validar(user, pass);
-            if(em.getUser()!=null){
-                HttpSession mysesion = request.getSession(true);
-                request.setAttribute("usuario", em);
-                mysesion.setAttribute("em",em);
-                request.getRequestDispatcher("Controlador?menu=Principal").forward(request, response);
-            }else{
-                request.getRequestDispatcher("index.jsp").forward(request, response);
-            }
-        }else{
-            request.getRequestDispatcher("index.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.invalidate();
         }
+        response.sendRedirect("index.jsp"); // Redirige a la página de inicio o a donde desees
     }
 
     /**
