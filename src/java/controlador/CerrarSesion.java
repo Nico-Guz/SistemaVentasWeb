@@ -29,18 +29,14 @@ public class CerrarSesion extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet CerrarSesion</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet CerrarSesion at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        HttpSession session = request.getSession(false); // No crea una nueva sesión si no existe
+        if (session != null && session.getAttribute("em") != null) {
+            // Si la sesión y el atributo de sesión "em" están presentes,
+            // significa que el usuario ya ha iniciado sesión
+            response.sendRedirect("Controlador?menu=Principal"); // Redirige al usuario a la página principal
+        }
+        else {
+            request.getRequestDispatcher("index.jsp").forward(request, response);
         }
     }
 
